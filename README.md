@@ -4,15 +4,29 @@
 Implementação de 2 nós (send_msg e turtle). O nó "send_msg" é usado para envio de comandos ao tópico /cmd_turtle, enquanto o nó "turtle" se inscreve nesse tópico, junto com o tópico /turtle1/pose, rotacionando (se necessário) e se deslocando (se possível).
 
 ## Requisitos
-Para rodar o nó, é necessário ter ROS2 instalado, assim como o pacote python "colcon".
+- Ubuntu 24 com ROS 2 Jazzy
+- colcon com as extensões para ROS (python3-colcon-common-extensions), que pode ser instalado com:
+
+```bash
+sudo apt install python3-colcon-common-extensions
+```
 
 ## Como rodar
-Primeiro, rode o seguintes comando
 
-``` bash
-cd ~/ros2_ws
+Primeiro, carregue o ambiente do ROS 2, vá até a raiz do seu diretorio ros2 e compile:
+
+```bash
+source /opt/ros/jazzy/setup.zsh # ou o arquivo setup correspondente ao seu terminal (bash, zsh, etc)
+cd diretorio_do_ros2/
 colcon build --symlink-install
-source install/setup.zsh # ou o arquivo setup correspondente ao seu terminal (bash, zsh, etc)
+source install/setup.zsh
+```
+
+Obs.: Todo novo terminal aberto precisa carregar o ambiente antes de rodar os comandos abaixo:
+
+```bash
+source /opt/ros/jazzy/setup.zsh
+source diretorio_do_ros2/install/setup.zsh
 ```
 
 No mesmo terminal, rode
@@ -21,9 +35,14 @@ ros2 run turtlesim turtlesim_node&
 ros2 run problem_1 send_msg
 ```
 
-Por último, entre outro terminal, rode
+Por último, entre outro terminal (após carregar o ambiente), rode
 ```bash
 ros2 run problem_1 turtle
+```
+
+Para verificar o fluxo de mensagens, em outro terminal (após carregar o ambiente), rode
+```bash
+ros2 topic echo /cmd_turtle
 ```
 
 ## Explicação de lógicas presentes no código
