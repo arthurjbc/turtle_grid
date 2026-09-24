@@ -129,17 +129,9 @@ class TurtleNode : public rclcpp::Node {
         }
 
         void finish_command(){
-            if (pending_command == "right") {
-                x += 1;
-            } else if (pending_command == "left") {
-                x += -1;
-            } else if (pending_command == "up") {
-                y += 1;
-            } else if (pending_command == "down") {
-                y += -1;
-            }
-
-            RCLCPP_INFO(this->get_logger(), "Posicao atual: (%d, %d); Posição real: (%f, %f)", (int) round(pose->x - 5.544445), (int) round(pose->y - 5.544445), (pose->x), (pose->y));
+            x=(int) round(pose->x - 5.544445);
+            y=(int) round(pose->y - 5.544445);
+            RCLCPP_INFO(this->get_logger(), "Posicao atual: (%d, %d); Posição real: (%f, %f)", x, y, (pose->x), (pose->y));
             RCLCPP_INFO(this->get_logger(), "Theta atual: (%f), command = %s", pose->theta, pending_command.c_str());
 
             pending_command.clear();
